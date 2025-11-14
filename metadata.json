@@ -1,0 +1,7 @@
+{
+  "name": "Splice Box Manager",
+  "description": "A tool to generate, manage, and track unique sequential IDs for different types of splice boxes (Joint Box and Distribution Box). It supports re-using deleted IDs to maintain sequence integrity.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
