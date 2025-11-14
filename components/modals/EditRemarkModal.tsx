@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 
+/**
+ * Props for the EditRemarkModal component.
+ */
 interface EditRemarkModalProps {
+    /** The remark being edited, containing the box ID and original text. The modal is open if this is not null. */
     editingRemark: { id: string; text: string } | null;
+    /** Callback function to close the modal. */
     onClose: () => void;
+    /** Callback function to save the updated remark text. */
     onSave: (id: string, text: string) => void;
 }
 
+/**
+ * A modal dialog for editing the remark of a splice box.
+ * It provides a textarea for editing and buttons to save or cancel.
+ *
+ * @param {EditRemarkModalProps} props - The component props.
+ * @returns {JSX.Element} The rendered modal component.
+ */
 const EditRemarkModal: React.FC<EditRemarkModalProps> = ({ editingRemark, onClose, onSave }) => {
     const [remarkText, setRemarkText] = useState('');
 

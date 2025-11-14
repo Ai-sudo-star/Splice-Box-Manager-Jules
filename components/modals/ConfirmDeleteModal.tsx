@@ -1,12 +1,25 @@
 import React from 'react';
 import Modal from './Modal';
 
+/**
+ * Props for the ConfirmDeleteModal component.
+ */
 interface ConfirmDeleteModalProps {
+    /** The ID of the box to be deleted. The modal is open if this is not null. */
     boxId: string | null;
+    /** Callback function to close the modal. */
     onClose: () => void;
+    /** Callback function to execute when the deletion is confirmed. */
     onConfirm: () => void;
 }
 
+/**
+ * A modal dialog to confirm the deletion of a splice box.
+ * It displays the ID of the box to be deleted and provides options to confirm or cancel.
+ *
+ * @param {ConfirmDeleteModalProps} props - The component props.
+ * @returns {JSX.Element} The rendered modal component.
+ */
 const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({ boxId, onClose, onConfirm }) => {
     return (
         <Modal isOpen={!!boxId} onClose={onClose} title="Confirm Deletion">

@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 
+/**
+ * A form component for adding a new splice box type.
+ * It includes validation for the name and prefix fields.
+ *
+ * @param {object} props - The component props.
+ * @param {(name: string, prefix: string) => void} props.onAdd - Callback function to execute when a new type is added.
+ * @param {string[]} props.existingPrefixes - An array of existing prefixes to prevent duplicates.
+ * @returns {JSX.Element} The rendered form component.
+ */
 const AddBoxTypeForm: React.FC<{ onAdd: (name: string, prefix: string) => void; existingPrefixes: string[] }> = ({ onAdd, existingPrefixes }) => {
     const [name, setName] = useState('');
     const [prefix, setPrefix] = useState('');
@@ -62,13 +71,27 @@ const AddBoxTypeForm: React.FC<{ onAdd: (name: string, prefix: string) => void; 
     );
 };
 
+/**
+ * Props for the AddBoxTypeModal component.
+ */
 interface AddBoxTypeModalProps {
+    /** Whether the modal is currently open. */
     isOpen: boolean;
+    /** Callback function to close the modal. */
     onClose: () => void;
+    /** Callback function to add a new box type. */
     onAdd: (name: string, prefix: string) => void;
+    /** An array of existing prefixes to prevent duplicates. */
     existingPrefixes: string[];
 }
 
+/**
+ * A modal component that wraps the AddBoxTypeForm to allow users
+ * to add a new splice box type from a modal dialog.
+ *
+ * @param {AddBoxTypeModalProps} props - The component props.
+ * @returns {JSX.Element} The rendered modal component.
+ */
 const AddBoxTypeModal: React.FC<AddBoxTypeModalProps> = ({ isOpen, onClose, onAdd, existingPrefixes }) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose} title="Add New Box Type">

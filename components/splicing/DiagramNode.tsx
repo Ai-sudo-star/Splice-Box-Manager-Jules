@@ -2,20 +2,41 @@ import React from 'react';
 import { DiagramNode, Fiber } from '../../types';
 import { TrashIcon } from '../Icons';
 
+/**
+ * Props for the DiagramNodeComponent.
+ */
 interface DiagramNodeProps {
+    /** The node data to render. */
     node: DiagramNode;
+    /** Flag indicating if the diagram is in editing mode. */
     isEditing: boolean;
+    /** Mouse down event handler for dragging the node. */
     onMouseDown: (e: React.MouseEvent) => void;
+    /** Click handler for a fiber connection point. */
     onFiberClick: (nodeId: string, fiberId: string, type: 'in' | 'out') => void;
+    /** Callback to delete the node. */
     onDeleteNode: (nodeId: string) => void;
+    /** The currently selected fiber for creating a connection. */
     selection: { nodeId: string; fiberId: string; type: 'in' | 'out' } | null;
+    /** Function to check if a fiber is already connected. */
     isFiberConnected: (fiberId: string) => boolean;
+    /** Ref to a map of fiber DOM elements for rendering connections. */
     fiberElementsRef: React.MutableRefObject<Map<string, HTMLDivElement>>;
+    /** The ID of the node currently being hovered over. */
     hoveredNodeId: string | null;
+    /** Mouse enter event handler for the node. */
     onMouseEnter: () => void;
+    /** Mouse leave event handler for the node. */
     onMouseLeave: () => void;
 }
 
+/**
+ * Represents a single connection point (handle) for a fiber on a diagram node.
+ * It displays the fiber's color and label, and provides a clickable area for creating connections.
+ *
+ * @param {object} props - The component props.
+ * @returns {JSX.Element} The rendered node handle.
+ */
 const NodeHandle: React.FC<{
     nodeId: string;
     fiber: Fiber;
@@ -52,6 +73,14 @@ const NodeHandle: React.FC<{
     </div>
 );
 
+/**
+ * Renders a single node in the splicing diagram.
+ * The appearance and behavior of the node depend on its type (e.g., input cable, splitter).
+ * It handles rendering of fibers, node dragging, and deletion.
+ *
+ * @param {DiagramNodeProps} props - The component props.
+ * @returns {JSX.Element} The rendered diagram node.
+ */
 const DiagramNodeComponent: React.FC<DiagramNodeProps> = ({ node, isEditing, onMouseDown, onFiberClick, onDeleteNode, selection, isFiberConnected, fiberElementsRef, hoveredNodeId, onMouseEnter, onMouseLeave }) => {
     const isNodeHovered = node.id === hoveredNodeId;
     

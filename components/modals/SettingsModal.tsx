@@ -5,6 +5,15 @@ import { Tag, SpliceBoxTypeDefinition } from '../../types';
 import { tagColors } from '../../constants';
 import { TrashIcon } from '../Icons';
 
+/**
+ * A form for adding a new splice box type.
+ * Handles input, validation, and submission for creating new box types.
+ *
+ * @param {object} props - The component props.
+ * @param {(name: string, prefix: string) => void} props.onAdd - Callback to add the new box type.
+ * @param {string[]} props.existingPrefixes - An array of existing prefixes for validation.
+ * @returns {JSX.Element} The rendered form.
+ */
 const AddBoxTypeForm: React.FC<{ onAdd: (name: string, prefix: string) => void; existingPrefixes: string[] }> = ({ onAdd, existingPrefixes }) => {
     const [name, setName] = useState('');
     const [prefix, setPrefix] = useState('');
@@ -68,6 +77,14 @@ const AddBoxTypeForm: React.FC<{ onAdd: (name: string, prefix: string) => void; 
     );
 };
 
+/**
+ * A form for adding a new tag.
+ * Handles input for tag name, color selection, and submission.
+ *
+ * @param {object} props - The component props.
+ * @param {(name: string, color: string) => boolean} props.onAddTag - Callback to add the new tag. Returns false if the tag exists.
+ * @returns {JSX.Element} The rendered form.
+ */
 const AddTagForm: React.FC<{ onAddTag: (name: string, color: string) => boolean }> = ({ onAddTag }) => {
     const [newTagName, setNewTagName] = useState('');
     const [selectedColor, setSelectedColor] = useState(tagColors[0]);
@@ -118,17 +135,36 @@ const AddTagForm: React.FC<{ onAddTag: (name: string, color: string) => boolean 
     );
 };
 
+/**
+ * Props for the SettingsModal component.
+ */
 interface SettingsModalProps {
+    /** Whether the modal is currently open. */
     isOpen: boolean;
+    /** Callback function to close the modal. */
     onClose: () => void;
+    /** The current list of box type definitions. */
     boxTypes: SpliceBoxTypeDefinition[];
+    /** Callback to add a new box type. */
     onAddBoxType: (name: string, prefix: string) => void;
+    /** Callback to delete a box type by its prefix. */
     onDeleteBoxType: (prefix: string) => void;
+    /** The current list of tags. */
     tags: Tag[];
+    /** Callback to add a new tag. */
     onAddTag: (name: string, color: string) => boolean;
+    /** Callback to delete a tag by its name. */
     onDeleteTag: (name: string) => void;
 }
 
+/**
+ * A modal dialog for managing application settings.
+ * It includes tabs for managing "Box Types" and "Tags", allowing for
+ * creation and deletion of both.
+ *
+ * @param {SettingsModalProps} props - The component props.
+ * @returns {JSX.Element} The rendered modal.
+ */
 const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, boxTypes, onAddBoxType, onDeleteBoxType, tags, onAddTag, onDeleteTag }) => {
     const [activeTab, setActiveTab] = useState<'types' | 'tags'>('types');
 

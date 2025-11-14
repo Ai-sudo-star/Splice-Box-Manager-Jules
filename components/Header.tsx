@@ -2,11 +2,22 @@ import React from 'react';
 import { UserProfile } from '../types';
 import { UserIcon } from './Icons';
 
+/**
+ * Props for the Header component.
+ */
 interface HeaderProps {
+    /** The user's profile data. */
     profile: UserProfile;
+    /** Callback function to navigate to the user's profile page. */
     onNavigateToProfile: () => void;
 }
 
+/**
+ * The main header component for the application.
+ * It displays the application title and a button to access the user profile.
+ * @param {HeaderProps} props The component props.
+ * @returns {JSX.Element} The rendered header.
+ */
 const Header: React.FC<HeaderProps> = ({ profile, onNavigateToProfile }) => (
   <header className="flex justify-between items-center text-center p-4">
     <div className="w-12 h-12"></div> {/* Spacer to balance the profile button */}

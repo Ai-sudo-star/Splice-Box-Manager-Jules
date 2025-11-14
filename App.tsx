@@ -19,6 +19,13 @@ import ConfirmDeleteModal from './components/modals/ConfirmDeleteModal';
 import ProfilePage from './components/ProfilePage';
 import SplicingDiagramPage from './components/splicing/SplicingDiagramPage';
 
+/**
+ * The main application component.
+ * It orchestrates the entire application state and renders the different views
+ * (manager, profile, splicing diagram). It handles all business logic,
+ * state management, and interactions between components.
+ * @returns {JSX.Element} The rendered application.
+ */
 const App: React.FC = () => {
     const {
         storageError,

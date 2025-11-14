@@ -8,14 +8,26 @@ import DiagramControls from './DiagramControls';
 
 const GRID_SIZE = 16;
 
-// Co-located modal component for adding a new cable/fiber group
+/**
+ * Props for the AddCableModal component.
+ */
 interface AddCableModalProps {
+    /** Whether the modal is open. */
     isOpen: boolean;
+    /** Callback to close the modal. */
     onClose: () => void;
+    /** Callback to submit the new cable data. */
     onSubmit: (label: string, coreCount: number) => void;
+    /** The type of cable to add ('input-cable' or 'output-cable'). */
     nodeType: 'input-cable' | 'output-cable';
 }
 
+/**
+ * A modal for adding a new input or output cable node to the diagram.
+ * It prompts the user for a cable name and the number of cores.
+ * @param {AddCableModalProps} props The component props.
+ * @returns {JSX.Element} The rendered modal.
+ */
 const AddCableModal: React.FC<AddCableModalProps> = ({ isOpen, onClose, onSubmit, nodeType }) => {
     const [label, setLabel] = useState('');
     const [coreCount, setCoreCount] = useState<number>(12);
@@ -96,12 +108,24 @@ const AddCableModal: React.FC<AddCableModalProps> = ({ isOpen, onClose, onSubmit
     );
 };
 
+/**
+ * Props for the AddSplitterModal component.
+ */
 interface AddSplitterModalProps {
+    /** Whether the modal is open. */
     isOpen: boolean;
+    /** Callback to close the modal. */
     onClose: () => void;
+    /** Callback to submit the new splitter data. */
     onSubmit: (label: string, outputCount: number) => void;
 }
 
+/**
+ * A modal for adding a new splitter node to the diagram.
+ * It prompts the user for a splitter name and the split ratio.
+ * @param {AddSplitterModalProps} props The component props.
+ * @returns {JSX.Element} The rendered modal.
+ */
 const AddSplitterModal: React.FC<AddSplitterModalProps> = ({ isOpen, onClose, onSubmit }) => {
     const [label, setLabel] = useState('');
     const [outputCount, setOutputCount] = useState<number>(8);
@@ -172,23 +196,48 @@ const AddSplitterModal: React.FC<AddSplitterModalProps> = ({ isOpen, onClose, on
     );
 };
 
-
+/**
+ * Generates an SVG path string for a smooth horizontal bezier curve between two points.
+ * This is used to draw the connections between fibers.
+ * @param {number} startX The starting X coordinate.
+ * @param {number} startY The starting Y coordinate.
+ * @param {number} endX The ending X coordinate.
+ * @param {number} endY The ending Y coordinate.
+ * @returns {string} The SVG path data string.
+ */
 const getCurvePath = (startX: number, startY: number, endX: number, endY: number) => {
     const hx1 = startX + Math.abs(endX - startX) * 0.6;
     const hx2 = endX - Math.abs(endX - startX) * 0.6;
     return `M ${startX} ${startY} C ${hx1} ${startY} ${hx2} ${endY} ${endX} ${endY}`;
 };
 
+/**
+ * Props for the SplicingDiagram component.
+ */
 interface SplicingDiagramProps {
+    /** The data for the diagram including nodes and connections. */
     content: DiagramContent;
+    /** The current viewport state (pan and zoom). */
     viewport: SplicingDiagramData['viewport'];
+    /** Flag indicating if the diagram is in editing mode. */
     isEditing: boolean;
+    /** Callback to update the diagram's content. */
     onContentUpdate: (newContent: DiagramContent) => void;
+    /** Callback to update the viewport state. */
     onViewportUpdate: (newViewport: SplicingDiagramData['viewport']) => void;
+    /** The type of node to be added, triggered from an external control. */
     pendingNodeType: NodeType | null;
+    /** Callback to signal that the pending node has been handled. */
     onPendingNodeHandled: () => void;
 }
 
+/**
+ * The main component for the interactive splicing diagram.
+ * It manages the canvas, rendering of nodes and connections, and all user interactions
+ * such as panning, zooming, dragging nodes, and creating connections.
+ * @param {SplicingDiagramProps} props The component props.
+ * @returns {JSX.Element} The rendered diagram.
+ */
 const SplicingDiagram: React.FC<SplicingDiagramProps> = ({ content, viewport, isEditing, onContentUpdate, onViewportUpdate, pendingNodeType, onPendingNodeHandled }) => {
     const { nodes, connections } = content;
     const { x, y, zoom } = viewport;

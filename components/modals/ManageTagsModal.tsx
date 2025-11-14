@@ -4,14 +4,37 @@ import TagPill from '../TagPill';
 import { Tag } from '../../types';
 import { tagColors } from '../../constants';
 
+/**
+ * Props for the ManageTagsModal component.
+ */
 interface ManageTagsModalProps {
+    /** Whether the modal is currently open. */
     isOpen: boolean;
+    /** Callback function to close the modal. */
     onClose: () => void;
+    /** The current list of all tags. */
     tags: Tag[];
+    /**
+     * Callback function to add a new tag.
+     * @param name - The name of the new tag.
+     * @param color - The color of the new tag.
+     * @returns {boolean} - True if the tag was added successfully, false otherwise (e.g., if it already exists).
+     */
     onAddTag: (name: string, color: string) => boolean;
+    /**
+     * Callback function to delete an existing tag.
+     * @param name - The name of the tag to delete.
+     */
     onDeleteTag: (name: string) => void;
 }
 
+/**
+ * A modal dialog for managing tags. It allows users to create new tags
+ * with a specified name and color, and to delete existing tags.
+ *
+ * @param {ManageTagsModalProps} props - The component props.
+ * @returns {JSX.Element} The rendered modal component.
+ */
 const ManageTagsModal: React.FC<ManageTagsModalProps> = ({ isOpen, onClose, tags, onAddTag, onDeleteTag }) => {
     const [newTagName, setNewTagName] = useState('');
     const [selectedColor, setSelectedColor] = useState(tagColors[0]);

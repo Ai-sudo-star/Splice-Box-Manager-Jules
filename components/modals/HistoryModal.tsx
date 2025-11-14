@@ -2,12 +2,25 @@ import React from 'react';
 import Modal from './Modal';
 import { SpliceBox } from '../../types';
 
+/**
+ * Props for the HistoryModal component.
+ */
 interface HistoryModalProps {
+    /** The splice box whose history is to be displayed. */
     box: SpliceBox | null;
+    /** Whether the modal is currently open. */
     isOpen: boolean;
+    /** Callback function to close the modal. */
     onClose: () => void;
 }
 
+/**
+ * A modal dialog that displays the history of a specific splice box.
+ * It shows a timeline of events, such as creation, updates, and deletion.
+ *
+ * @param {HistoryModalProps} props - The component props.
+ * @returns {JSX.Element} The rendered modal component.
+ */
 const HistoryModal: React.FC<HistoryModalProps> = ({ box, isOpen, onClose }) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose} title={`History for ${box?.id || ''}`}>
