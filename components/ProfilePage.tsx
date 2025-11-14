@@ -2,12 +2,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import { UserProfile } from '../types';
 import { CameraIcon, UserIcon } from './Icons';
 
+/**
+ * Props for the ProfilePage component.
+ */
 interface ProfilePageProps {
+    /** The current user profile data. */
     profile: UserProfile;
+    /** Callback function to save the updated profile. */
     onSave: (newProfile: UserProfile) => void;
+    /** Callback function to navigate back to the main page. */
     onBack: () => void;
 }
 
+/**
+ * A page component for viewing and editing the user's profile.
+ * It allows changing the display name, profile picture, and notification settings.
+ * @param {ProfilePageProps} props The component props.
+ * @returns {JSX.Element} The rendered profile page.
+ */
 const ProfilePage: React.FC<ProfilePageProps> = ({ profile, onSave, onBack }) => {
     const [formData, setFormData] = useState<UserProfile>(profile);
     const fileInputRef = useRef<HTMLInputElement>(null);

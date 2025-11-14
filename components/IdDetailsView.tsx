@@ -3,6 +3,12 @@ import { SpliceBox, SpliceBoxDetails, Tag } from '../types';
 import { LocationMarkerIcon, StarIcon } from './Icons';
 import TagPill from './TagPill';
 
+/**
+ * A reusable component for displaying a single section of details.
+ * It can switch between a view mode and an edit mode with a textarea.
+ * @param {object} props The component props.
+ * @returns {JSX.Element} The rendered detail section.
+ */
 const DetailSection: React.FC<{ title: string; content: string; isEditing: boolean; onChange: (value: string) => void; }> = ({ title, content, isEditing, onChange }) => (
     <div>
         <h4 className="font-bold text-slate-100 border-b border-slate-600 pb-1 mb-2">{title}</h4>
@@ -21,15 +27,30 @@ const DetailSection: React.FC<{ title: string; content: string; isEditing: boole
     </div>
 );
 
+/**
+ * Props for the IdDetailsView component.
+ */
 interface IdDetailsViewProps {
+    /** The currently selected splice box to display details for. */
     selectedBox: SpliceBox | null;
+    /** Callback to update the details of a splice box. */
     onUpdateDetails: (id: string, newDetails: SpliceBoxDetails) => void;
+    /** Callback to toggle the favorite status of a splice box. */
     onToggleFavorite: (id: string) => void;
+    /** Callback to update the tags of a splice box. */
     onUpdateTags: (id: string, newTags: string[]) => void;
+    /** The list of all available tags. */
     allTags: Tag[];
+    /** Callback to open the splicing diagram for the selected box. */
     onOpenSplicingDiagram: (id: string) => void;
 }
 
+/**
+ * A component that displays the detailed information for a selected splice box.
+ * It supports an editing mode to modify details, tags, and location.
+ * @param {IdDetailsViewProps} props The component props.
+ * @returns {JSX.Element} The rendered details view.
+ */
 const IdDetailsView: React.FC<IdDetailsViewProps> = ({ selectedBox, onUpdateDetails, onToggleFavorite, onUpdateTags, allTags, onOpenSplicingDiagram }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editableDetails, setEditableDetails] = useState<SpliceBoxDetails | null>(null);

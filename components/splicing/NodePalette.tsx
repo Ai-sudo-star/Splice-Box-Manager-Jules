@@ -2,12 +2,21 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { NodeType } from '../../types';
 import { CloseIcon } from '../Icons';
 
+/**
+ * Props for the NodePalette component.
+ */
 interface NodePaletteProps {
+    /** Flag indicating if the diagram is in editing mode. */
     isEditing: boolean;
+    /** Flag indicating if the palette is currently visible. */
     isVisible: boolean;
+    /** Callback function to close the palette. */
     onClose: () => void;
+    /** Callback function to add a new node to the diagram. */
     onAddNode: (type: NodeType) => void;
+    /** The current position of the palette. */
     position: { x: number; y: number };
+    /** Callback function to update the palette's position. */
     onPositionChange: (newPosition: { x: number; y: number }) => void;
 }
 
@@ -17,6 +26,13 @@ const nodeTypes: { type: NodeType; label: string }[] = [
     { type: 'splitter', label: 'Splitter' },
 ];
 
+/**
+ * A floating palette component that allows users to add new nodes to the splicing diagram.
+ * It is only visible in editing mode and can be dragged around the screen.
+ *
+ * @param {NodePaletteProps} props - The component props.
+ * @returns {JSX.Element | null} The rendered node palette, or null if not visible or not in editing mode.
+ */
 const NodePalette: React.FC<NodePaletteProps> = ({ isEditing, isVisible, onClose, onAddNode, position, onPositionChange }) => {
     const [isDragging, setIsDragging] = useState(false);
     const dragOffset = useRef({ x: 0, y: 0 });

@@ -1,14 +1,29 @@
 import React from 'react';
 
+/**
+ * Props for the TagPill component.
+ */
 interface TagPillProps {
+    /** The name of the tag to display. */
     name: string;
+    /** The background color class for the tag (e.g., 'bg-red-500'). */
     color: string;
+    /** Optional click handler for the tag. */
     onClick?: () => void;
+    /** Flag to indicate if the tag is currently active or selected. */
     isActive?: boolean;
+    /** Flag to indicate if the tag can be removed. */
     canRemove?: boolean;
+    /** Optional callback function to handle the removal of the tag. */
     onRemove?: () => void;
 }
 
+/**
+ * A small, pill-shaped component for displaying a tag.
+ * It can be interactive (clickable, removable) and can show an active state.
+ * @param {TagPillProps} props The component props.
+ * @returns {JSX.Element} The rendered tag pill.
+ */
 const TagPill: React.FC<TagPillProps> = ({ name, color, onClick, isActive, canRemove, onRemove }) => {
     const baseClasses = `text-xs font-semibold mr-2 mb-2 px-2.5 py-1 rounded-full text-white inline-flex items-center`;
     const interactiveClasses = onClick ? 'cursor-pointer transition-transform transform hover:scale-105' : '';

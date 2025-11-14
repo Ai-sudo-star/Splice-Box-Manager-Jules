@@ -1,5 +1,17 @@
 import React from 'react';
 
+/**
+ * A generic, reusable modal component.
+ * It provides a consistent structure for dialogs across the application,
+ * including a backdrop, a title, a close button, and a content area.
+ *
+ * @param {object} props - The component props.
+ * @param {boolean} props.isOpen - Whether the modal is currently visible.
+ * @param {() => void} props.onClose - Callback function to close the modal.
+ * @param {React.ReactNode} props.children - The content to be displayed inside the modal.
+ * @param {string} props.title - The title of the modal.
+ * @returns {JSX.Element | null} The rendered modal component, or null if `isOpen` is false.
+ */
 const Modal: React.FC<{ isOpen: boolean; onClose: () => void; children: React.ReactNode; title: string }> = ({ isOpen, onClose, children, title }) => {
     if (!isOpen) return null;
 

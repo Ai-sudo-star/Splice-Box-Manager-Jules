@@ -4,12 +4,24 @@ import SplicingDiagram from './SplicingDiagram';
 import NodePalette from './NodePalette';
 import { PaletteIcon, RedoIcon, UndoIcon } from '../Icons';
 
+/**
+ * Props for the SplicingDiagramPage component.
+ */
 interface SplicingDiagramPageProps {
+    /** The splice box data for which the diagram is being displayed. */
     box: SpliceBox;
+    /** Callback function to update the details of the splice box. */
     onUpdateDetails: (id: string, newDetails: SpliceBoxDetails) => void;
+    /** Callback function to navigate back to the previous view. */
     onBack: () => void;
 }
 
+/**
+ * A toolbar component providing controls for the splicing diagram.
+ * It includes buttons for editing, saving, canceling, undo/redo, and toggling the components palette.
+ * @param {object} props The component props.
+ * @returns {JSX.Element} The rendered toolbar.
+ */
 const DiagramToolbar: React.FC<{
     isEditing: boolean;
     onEdit: () => void;
@@ -60,7 +72,13 @@ const DiagramToolbar: React.FC<{
     );
 };
 
-
+/**
+ * A top-level component that orchestrates the splicing diagram view.
+ * It manages the editing state, history (undo/redo), and data migration from older diagram formats.
+ * It combines the main diagram, a toolbar for actions, and a floating node palette.
+ * @param {SplicingDiagramPageProps} props The component props.
+ * @returns {JSX.Element} The rendered page.
+ */
 const SplicingDiagramPage: React.FC<SplicingDiagramPageProps> = ({ box, onUpdateDetails, onBack }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [diagramContent, setDiagramContent] = useState<DiagramContent>({ nodes: [], connections: [] });

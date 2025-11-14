@@ -2,18 +2,36 @@ import React from 'react';
 import { SpliceBox } from '../types';
 import { EditIcon, HistoryIcon, MapIcon, StarIcon, TrashIcon } from './Icons';
 
+/**
+ * Props for the IdList component.
+ */
 interface IdListProps {
+    /** The title of the list. */
     title: string;
+    /** The array of splice boxes to display. */
     boxes: SpliceBox[];
+    /** The ID of the currently selected splice box. */
     selectedId: string | null;
+    /** Callback function when a splice box is selected. */
     onSelect: (id: string) => void;
+    /** Callback function to delete a splice box. */
     onDelete: (id: string) => void;
+    /** Callback function to view the history of a splice box. */
     onViewHistory: (id: string) => void;
+    /** Callback function to edit the remark of a splice box. */
     onEditRemark: (id: string) => void;
+    /** Flag indicating if the favorites filter is active. */
     isFavoritesActive: boolean;
+    /** Callback function to toggle the favorites filter. */
     onToggleFavorites: () => void;
 }
 
+/**
+ * A component that displays a list of splice box IDs.
+ * It provides actions for each ID, such as deleting, viewing history, and editing remarks.
+ * @param {IdListProps} props The component props.
+ * @returns {JSX.Element} The rendered list component.
+ */
 const IdList: React.FC<IdListProps> = ({ title, boxes, selectedId, onSelect, onDelete, onViewHistory, onEditRemark, isFavoritesActive, onToggleFavorites }) => (
     <div className="bg-slate-800 p-6 rounded-lg shadow-lg h-full">
         <div className="flex justify-between items-center mb-4">

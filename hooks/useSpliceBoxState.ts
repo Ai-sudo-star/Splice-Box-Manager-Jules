@@ -2,12 +2,32 @@ import { useState, useEffect } from 'react';
 import { SpliceBox, SpliceBoxTypeDefinition, SpliceBoxDetails, Tag, UserProfile, SplicingDiagramData, OldSplicingDiagramData } from '../types';
 import { APP_STORAGE_KEY } from '../constants';
 
+/**
+ * A custom React hook to manage the entire application state related to splice boxes,
+ * box types, tags, and user profile. It handles loading state from and saving state
+ * to the browser's localStorage.
+ *
+ * This hook is responsible for:
+ * - Initializing the application state with default values or from localStorage.
+ * - Handling data migration for older state structures.
+ * - Persisting any changes to the state back to localStorage.
+ * - Providing state variables and their setters to the rest of the application.
+ * - Reporting any errors related to localStorage operations.
+ *
+ * @returns An object containing the application's state and state setters.
+ */
 const useSpliceBoxState = () => {
+    /** State for storing any error messages related to localStorage. */
     const [storageError, setStorageError] = useState<string | null>(null);
+    /** State to track if the initial state has been loaded from localStorage. */
     const [isStateLoaded, setIsStateLoaded] = useState(false);
+    /** State for the definitions of different types of splice boxes. */
     const [boxTypes, setBoxTypes] = useState<SpliceBoxTypeDefinition[]>([]);
+    /** State for the list of all splice boxes. */
     const [boxes, setBoxes] = useState<SpliceBox[]>([]);
+    /** State for the list of all available tags. */
     const [tags, setTags] = useState<Tag[]>([]);
+    /** State for the user's profile information. */
     const [profile, setProfile] = useState<UserProfile>({
         displayName: 'Default User',
         profilePicture: null,

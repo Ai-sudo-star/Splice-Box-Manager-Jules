@@ -2,15 +2,30 @@ import React from 'react';
 import { SpliceBoxTypeDefinition } from '../types';
 import { SettingsIcon } from './Icons';
 
+/**
+ * Props for the IdControls component.
+ */
 interface IdControlsProps {
+    /** The currently selected box type prefix. */
     selectedType: string | null;
+    /** The list of available box type definitions. */
     boxTypes: SpliceBoxTypeDefinition[];
+    /** Callback function when the selected box type changes. */
     onTypeChange: (type: string) => void;
+    /** Callback function to trigger the generation of a new ID. */
     onGenerate: () => void;
+    /** Flag indicating if an ID is currently being generated. */
     isLoading: boolean;
+    /** Callback function to show the settings modal. */
     onShowSettingsModal: () => void;
 }
 
+/**
+ * A component that provides controls for selecting a splice box type and generating a new ID.
+ * It includes a dropdown for type selection and a button to trigger ID generation.
+ * @param {IdControlsProps} props The component props.
+ * @returns {JSX.Element} The rendered controls component.
+ */
 const IdControls: React.FC<IdControlsProps> = ({ selectedType, boxTypes, onTypeChange, onGenerate, isLoading, onShowSettingsModal }) => (
     <div className="bg-slate-800 p-6 rounded-lg shadow-lg">
         <div className="flex justify-between items-center mb-4">

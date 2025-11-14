@@ -1,5 +1,14 @@
 import React from 'react';
 
+/**
+ * A banner component for displaying storage-related errors.
+ * It shows an error message and provides a button to dismiss the banner.
+ *
+ * @param {object} props - The component props.
+ * @param {string} props.message - The error message to display.
+ * @param {() => void} props.onDismiss - Callback function to dismiss the banner.
+ * @returns {JSX.Element} The rendered error banner.
+ */
 const StorageErrorBanner: React.FC<{ message: string; onDismiss: () => void }> = ({ message, onDismiss }) => (
     <div className="bg-red-800 bg-opacity-90 text-white p-4 rounded-lg mb-6 flex justify-between items-center shadow-lg" role="alert">
         <div className="flex items-center">
